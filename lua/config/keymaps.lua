@@ -75,3 +75,11 @@ local function copy_python_dotted_test()
 end
 
 vim.keymap.set("n", "<leader>td", copy_python_dotted_test, { desc = "Copy dotted test path" })
+
+vim.keymap.set("n", "<leader>fi", function()
+  require("snacks").picker.files({
+    cwd = vim.fn.getcwd() .. "/src",
+    hidden = true,
+    ignored = true,
+  })
+end, { desc = "Find files in ignored src folder" })
