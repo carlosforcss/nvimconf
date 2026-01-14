@@ -83,3 +83,8 @@ vim.keymap.set("n", "<leader>fi", function()
     ignored = true,
   })
 end, { desc = "Find files in ignored src folder" })
+
+vim.keymap.set("n", "<leader>ya", function()
+  vim.cmd("normal! ggVG")
+  vim.cmd('normal! "+y')
+end, { desc = "Copy entire file to clipboard" })
