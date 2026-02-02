@@ -94,3 +94,7 @@ vim.keymap.del("i", "<Tab>")
 vim.keymap.del("s", "<Tab>")
 vim.keymap.del("i", "<S-Tab>")
 vim.keymap.del("s", "<S-Tab>")
+
+vim.keymap.set("i", "<C-l>", function()
+  require("copilot.suggestion").accept()
+end, { silent = true, desc = "Copilot Accept" })

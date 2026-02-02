@@ -20,4 +20,12 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require("copilot").setup(opts)
+
+    -- Force accept mapping even if copilot.lua doesn't create it
+    vim.keymap.set("i", "<C-l>", function()
+      require("copilot.suggestion").accept()
+    end, { silent = true, desc = "Copilot Accept" })
+  end,
 }
