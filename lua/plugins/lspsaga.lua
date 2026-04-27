@@ -2,8 +2,8 @@ return {
   {
     "glepnir/lspsaga.nvim",
     branch = "main",
+    event = "LspAttach",
     dependencies = {
-      { "nvim-tree/nvim-web-devicons" },
       { "nvim-treesitter/nvim-treesitter" },
     },
     config = function()

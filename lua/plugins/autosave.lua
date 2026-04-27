@@ -8,7 +8,6 @@ return {
     },
     trigger_events = {
       "InsertLeave",
-      "TextChanged",
     },
     debounce_delay = 135,
     condition = function(buf)
