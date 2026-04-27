@@ -98,3 +98,70 @@ vim.keymap.del("s", "<S-Tab>")
 vim.keymap.set("i", "<C-l>", function()
   require("copilot.suggestion").accept()
 end, { silent = true, desc = "Copilot Accept" })
+
+-- Cheat sheet
+vim.keymap.set("n", "<leader>?", function()
+  local lines = {
+    "                  CHEAT SHEET                  ",
+    "================================================",
+    "",
+    "── NAVIGATION ───────────────────────────────────",
+    "  <S-h> / <S-l>     Prev / Next buffer",
+    "  [b / ]b            Prev / Next buffer",
+    "  <leader>bd         Close buffer",
+    "  gd                 Go to definition",
+    "  gr                 Find references",
+    "  <C-o> / <C-i>      Jump back / forward",
+    "",
+    "── FILE EXPLORER ────────────────────────────────",
+    "  <leader>e          Open file explorer (mini.files)",
+    "  <leader>fi         Find files in ignored src/",
+    "  <leader>ff         Find files",
+    "  <leader>fg         Live grep",
+    "",
+    "── LSP ──────────────────────────────────────────",
+    "  <leader>ss         Search workspace symbols",
+    "  <leader>pd         Peek definition",
+    "  <leader>pi         Peek implementation",
+    "  <leader>pt         Peek type definition",
+    "  <leader>cf         Format file",
+    "  K                  Hover docs",
+    "",
+    "── COPILOT ──────────────────────────────────────",
+    "  <C-l>              Accept suggestion",
+    "  <M-]> / <M-[>      Next / Prev suggestion",
+    "  <C-]>              Dismiss suggestion",
+    "",
+    "── EDITOR ───────────────────────────────────────",
+    "  jj                 Exit insert mode",
+    "  <leader>ya         Yank entire file",
+    "  <leader>td         Copy Python dotted test path",
+    "  <leader>tt         Toggle floating terminal",
+    "  <leader>tb         Toggle bottom terminal",
+    "  <leader>?          This cheat sheet",
+  }
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.bo[buf].modifiable = false
+  vim.bo[buf].filetype = "markdown"
+
+  local width = 52
+  local height = #lines
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = "editor",
+    width = width,
+    height = height,
+    row = math.floor((vim.o.lines - height) / 2),
+    col = math.floor((vim.o.columns - width) / 2),
+    style = "minimal",
+    border = "rounded",
+    title = " Shortcuts ",
+    title_pos = "center",
+  })
+  vim.wo[win].cursorline = false
+
+  for _, key in ipairs({ "q", "<Esc>", "<leader>?" }) do
+    vim.keymap.set("n", key, "<cmd>close<CR>", { buffer = buf, silent = true })
+  end
+end, { desc = "Cheat sheet" })
