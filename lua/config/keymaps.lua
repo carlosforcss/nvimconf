@@ -89,12 +89,6 @@ vim.keymap.set("n", "<leader>ya", function()
   vim.cmd('normal! "+y')
 end, { desc = "Copy entire file to clipboard" })
 
--- Remove Neovim native snippet Tab behavior
-vim.keymap.del("i", "<Tab>")
-vim.keymap.del("s", "<Tab>")
-vim.keymap.del("i", "<S-Tab>")
-vim.keymap.del("s", "<S-Tab>")
-
 vim.keymap.set("i", "<C-l>", function()
   require("copilot.suggestion").accept()
 end, { silent = true, desc = "Copilot Accept" })
