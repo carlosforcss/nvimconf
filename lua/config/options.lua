@@ -9,3 +9,6 @@ vim.opt.lazyredraw = true
 vim.opt.synmaxcol = 200
 
 vim.g.autoformat = false
+
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
