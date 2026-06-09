@@ -70,6 +70,10 @@ end
 
 vim.keymap.set("n", "<leader>td", copy_python_dotted_test, { desc = "Copy dotted test path" })
 
+vim.keymap.set("n", "<leader>yi", function()
+  require("utils.import").yank_import()
+end, { desc = "Yank import for symbol" })
+
 vim.keymap.set("n", "<leader>fi", function()
   require("snacks").picker.files({
     cwd = vim.fn.getcwd() .. "/src",
@@ -119,6 +123,7 @@ vim.keymap.set("n", "<leader>?", function()
     "── EDITOR ───────────────────────────────────────",
     "  jj                 Exit insert mode",
     "  <leader>ya         Yank entire file",
+    "  <leader>yi         Yank import for symbol (py/js/rs)",
     "  <leader>td         Copy Python dotted test path",
     "  <leader>tt         Toggle floating terminal",
     "  <leader>tb         Toggle bottom terminal",
