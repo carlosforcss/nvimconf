@@ -12,7 +12,7 @@ return {
         functions = { "bold" },
       },
       integrations = {
-        cmp = true,
+        blink_cmp = true,
         gitsigns = true,
         mini = { enabled = true },
         native_lsp = {
@@ -25,7 +25,6 @@ return {
           },
         },
         treesitter = true,
-        telescope = { enabled = true },
         which_key = true,
       },
     },

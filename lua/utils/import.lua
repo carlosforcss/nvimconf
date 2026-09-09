@@ -101,7 +101,8 @@ function M.yank_import()
     return
   end
 
-  local params = vim.lsp.util.make_position_params()
+  local client = vim.lsp.get_clients({ bufnr = 0 })[1]
+  local params = vim.lsp.util.make_position_params(0, client and client.offset_encoding or "utf-16")
   vim.lsp.buf_request(0, "textDocument/definition", params, function(err, result)
     if err or not result or (vim.islist(result) and #result == 0) then
       vim.notify("No definition found for: " .. symbol, vim.log.levels.WARN)

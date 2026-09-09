@@ -4,7 +4,6 @@
 
 vim.opt.relativenumber = false
 
-vim.opt.lazyredraw = true
 vim.opt.synmaxcol = 200
 
 vim.g.autoformat = false

@@ -30,19 +30,9 @@ Each file in `lua/plugins/` should return a plugin specification table. LazyVim 
 
 Enabled language and feature extras (see `lazyvim.json`):
 - Languages: Python, Rust, Go, TypeScript/Angular, Astro, Docker, Terraform, SQL, YAML, JSON, Markdown, Git, Helm
-- AI: Copilot (native + chat)
 - Editor: mini-files
 
 ## Key Customizations
-
-### Copilot Configuration
-- Uses `zbirenbaum/copilot.lua` instead of official plugin
-- Panel disabled, inline suggestions enabled with auto-trigger
-- Keybindings:
-  - `<C-l>` - Accept suggestion
-  - `<M-]>` - Next suggestion
-  - `<M-[>` - Previous suggestion
-  - `<C-]>` - Dismiss suggestion
 
 ### Rust Development
 - rust-analyzer configured with all features enabled and check-on-save
@@ -53,15 +43,16 @@ Enabled language and feature extras (see `lazyvim.json`):
 - Silently saves without messages
 
 ### LSP UI Enhancements
-- Lspsaga provides enhanced LSP UI (peek definitions, implementations, etc.)
+- Snacks picker provides enhanced LSP UI (peek definitions, implementations, etc.)
 - Custom keymaps in `<leader>p` group:
   - `<leader>pd` - Peek Definition
   - `<leader>pi` - Peek Implementation
   - `<leader>pt` - Peek Type Definition
 
 ### Terminal
-- ToggleTerm configured for floating terminal
-- `<leader>tt` toggles terminal in both normal and terminal modes
+- Snacks terminal configured for floating and bottom terminals
+- `<leader>tt` toggles a floating terminal in both normal and terminal modes
+- `<leader>tb` toggles a bottom terminal in both normal and terminal modes
 
 ### Notable Custom Keymaps
 - `jj` in insert mode → Escape to normal mode
