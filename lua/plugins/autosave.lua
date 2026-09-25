@@ -5,11 +5,11 @@ return {
   opts = {
     enabled = true,
     trigger_events = {
-      immediate_save = { "BufLeave", "FocusLost" },
-      defer_save = { "InsertLeave", "TextChanged" },
+      immediate_save = { "BufLeave", "FocusLost", "QuitPre" },
+      defer_save = { "InsertLeave" },
       cancel_deferred_save = { "InsertEnter" },
     },
-    debounce_delay = 135,
+    debounce_delay = 1000,
     condition = function(buf)
       local fn = vim.fn
       return fn.getbufvar(buf, "&modifiable") == 1

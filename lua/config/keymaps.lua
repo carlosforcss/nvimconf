@@ -74,6 +74,21 @@ vim.keymap.set("n", "<leader>yi", function()
   require("utils.import").yank_import()
 end, { desc = "Yank import for symbol" })
 
+-- Hide the current terminal without a <leader> in terminal mode (avoids delaying every typed space)
+for _, key in ipairs({ "<C-/>", "<C-_>" }) do
+  vim.keymap.set("t", key, "<cmd>close<CR>", { desc = "Hide Terminal" })
+end
+
+vim.keymap.set("n", "<leader>fs", function()
+  require("utils.symbols").pick()
+end, { desc = "Find symbols (regex, project)" })
+vim.keymap.set("n", "<leader>fS", function()
+  require("utils.symbols").pick({
+    title = "Classes",
+    kinds = { "Class", "Struct", "Interface", "Enum", "TypeParameter" },
+  })
+end, { desc = "Find classes/types (regex, project)" })
+
 vim.keymap.set("n", "<leader>fi", function()
   require("snacks").picker.files({
     cwd = vim.fn.getcwd() .. "/src",
@@ -103,6 +118,8 @@ vim.keymap.set("n", "<leader>?", function()
     "",
     "── FILE EXPLORER ────────────────────────────────",
     "  <leader>e          Open file explorer (mini.files)",
+    "  <leader>fs         Find functions/classes (project)",
+    "  <leader>fS         Find classes/types (project)",
     "  <leader>fi         Find files in ignored src/",
     "  <leader>ff         Find files",
     "  <leader>fg         Live grep",
@@ -122,6 +139,7 @@ vim.keymap.set("n", "<leader>?", function()
     "  <leader>td         Copy Python dotted test path",
     "  <leader>tt         Toggle floating terminal",
     "  <leader>tb         Toggle bottom terminal",
+    "  <C-/>              Hide terminal (in terminal)",
     "  <leader>?          This cheat sheet",
   }
 

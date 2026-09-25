@@ -35,11 +35,12 @@ Enabled language and feature extras (see `lazyvim.json`):
 ## Key Customizations
 
 ### Rust Development
-- rust-analyzer configured with all features enabled and check-on-save
+- rust-analyzer runs via rustaceanvim (LazyVim rust extra), which already enables all features and check-on-save
 
 ### Auto-save
-- Configured via `Pocco81/auto-save.nvim`
-- Triggers on InsertLeave and TextChanged with 135ms debounce
+- Configured via `okuuva/auto-save.nvim`
+- Saves 1s after InsertLeave, and immediately on BufLeave, FocusLost and QuitPre (not on every TextChanged, to avoid
+  constant `cargo check`/lint runs)
 - Silently saves without messages
 
 ### LSP UI Enhancements
@@ -51,14 +52,17 @@ Enabled language and feature extras (see `lazyvim.json`):
 
 ### Terminal
 - Snacks terminal configured for floating and bottom terminals
-- `<leader>tt` toggles a floating terminal in both normal and terminal modes
-- `<leader>tb` toggles a bottom terminal in both normal and terminal modes
+- `<leader>tt` toggles a floating terminal, `<leader>tb` a bottom terminal (normal mode only, so typing a space in a
+  terminal has no delay)
+- `<C-/>` in terminal mode hides the current terminal
 
 ### Notable Custom Keymaps
 - `jj` in insert mode → Escape to normal mode
 - `gd` → LSP definitions (Snacks picker override)
 - `gr` → LSP references (Snacks picker override)
 - `<leader>ss` → Search workspace symbols
+- `<leader>fs` → Find functions/classes/methods across the project (regex via ripgrep, fuzzy on the name, `Class.method`)
+- `<leader>fS` → Same, but only classes/structs/interfaces/enums/types (implemented in `lua/utils/symbols.lua`)
 - `<leader>td` → Copy Python dotted test path (package.module.Class.test_method format)
 - `<leader>fi` → Find files in ignored src folder
 - `<leader>ya` → Yank (copy) entire file to clipboard

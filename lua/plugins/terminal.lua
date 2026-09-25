@@ -7,7 +7,7 @@ return {
         Snacks.terminal(nil, { win = { position = "float", border = "rounded" } })
       end,
       desc = "Toggle Floating Terminal",
-      mode = { "n", "t" },
+      mode = "n",
     },
     {
       "<leader>tb",
@@ -15,7 +15,7 @@ return {
         Snacks.terminal(nil, { win = { position = "bottom" } })
       end,
       desc = "Toggle Bottom Terminal",
-      mode = { "n", "t" },
+      mode = "n",
     },
   },
 }
