@@ -2,11 +2,6 @@
 -- then the Snacks matcher fuzzy-filters on the symbol name (optionally `Container.name`).
 local M = {}
 
-local function get_project_root()
-  local ok, util = pcall(require, "lazyvim.util")
-  return (ok and util.root.get()) or vim.uv.cwd()
-end
-
 -- Coarse ripgrep patterns (PCRE2). The transform re-parses each line per language and drops false positives.
 local rg_patterns = {
   -- python
@@ -368,7 +363,7 @@ function M.pick(opts)
     format = "lsp_symbol",
     workspace = true,
     preview = "file",
-    cwd = get_project_root(),
+    cwd = LazyVim.root(),
     matcher = { frecency = true },
     sort = name_first_sort(get_pattern),
   }, opts or {}))

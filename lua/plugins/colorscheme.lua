@@ -21,6 +21,61 @@ local p = {
   hint = "#5f8f84", -- L* 56  underdashed
 }
 
+-- Syntax roles: one lightness tier + style per role, applied to every group in `groups`
+local syntax = {
+  {
+    fg = p.keyword,
+    style = { "bold" },
+    groups = {
+      "Keyword",
+      "@keyword",
+      "@keyword.function",
+      "@keyword.return",
+      "@keyword.import",
+      "@keyword.conditional",
+      "@keyword.repeat",
+      "@keyword.operator",
+    },
+  },
+  {
+    fg = p.func,
+    style = { "bold" },
+    groups = {
+      "Function",
+      "@function",
+      "@function.call",
+      "@function.method",
+      "@function.method.call",
+      "@function.builtin",
+      "@lsp.type.method",
+      "@lsp.type.function",
+    },
+  },
+  { fg = p.string, groups = { "String", "@string" } },
+  {
+    fg = p.constant,
+    style = { "bold" },
+    groups = { "Number", "Boolean", "Constant", "@constant", "@constant.builtin" },
+  },
+  {
+    fg = p.type,
+    style = { "italic" },
+    groups = {
+      "Type",
+      "@type",
+      "@type.builtin",
+      "@lsp.type.class",
+      "@lsp.type.struct",
+      "@lsp.type.enum",
+      "@lsp.type.interface",
+    },
+  },
+  { fg = p.text, groups = { "@variable" } },
+  { fg = p.text, style = { "italic" }, groups = { "@variable.parameter", "@lsp.type.parameter" } },
+  { fg = p.operator, groups = { "Operator", "@operator", "@punctuation.bracket", "@punctuation.delimiter" } },
+  { fg = p.comment, style = { "italic" }, groups = { "Comment", "@comment" } },
+}
+
 return {
   {
     "catppuccin/nvim",
@@ -62,48 +117,13 @@ return {
       },
       highlight_overrides = {
         mocha = function()
-          return {
-            -- Syntax
-            Keyword = { fg = p.keyword, style = { "bold" } },
-            ["@keyword"] = { fg = p.keyword, style = { "bold" } },
-            ["@keyword.function"] = { fg = p.keyword, style = { "bold" } },
-            ["@keyword.return"] = { fg = p.keyword, style = { "bold" } },
-            ["@keyword.import"] = { fg = p.keyword, style = { "bold" } },
-            ["@keyword.conditional"] = { fg = p.keyword, style = { "bold" } },
-            ["@keyword.repeat"] = { fg = p.keyword, style = { "bold" } },
-            ["@keyword.operator"] = { fg = p.keyword, style = { "bold" } },
-            Function = { fg = p.func, style = { "bold" } },
-            ["@function"] = { fg = p.func, style = { "bold" } },
-            ["@function.call"] = { fg = p.func, style = { "bold" } },
-            ["@function.method"] = { fg = p.func, style = { "bold" } },
-            ["@function.method.call"] = { fg = p.func, style = { "bold" } },
-            ["@function.builtin"] = { fg = p.func, style = { "bold" } },
-            ["@lsp.type.method"] = { fg = p.func, style = { "bold" } },
-            ["@lsp.type.function"] = { fg = p.func, style = { "bold" } },
-            String = { fg = p.string },
-            ["@string"] = { fg = p.string },
-            Number = { fg = p.constant, style = { "bold" } },
-            Boolean = { fg = p.constant, style = { "bold" } },
-            Constant = { fg = p.constant, style = { "bold" } },
-            ["@constant"] = { fg = p.constant, style = { "bold" } },
-            ["@constant.builtin"] = { fg = p.constant, style = { "bold" } },
-            Type = { fg = p.type, style = { "italic" } },
-            ["@type"] = { fg = p.type, style = { "italic" } },
-            ["@type.builtin"] = { fg = p.type, style = { "italic" } },
-            ["@lsp.type.class"] = { fg = p.type, style = { "italic" } },
-            ["@lsp.type.struct"] = { fg = p.type, style = { "italic" } },
-            ["@lsp.type.enum"] = { fg = p.type, style = { "italic" } },
-            ["@lsp.type.interface"] = { fg = p.type, style = { "italic" } },
-            ["@variable"] = { fg = p.text },
-            ["@variable.parameter"] = { fg = p.text, style = { "italic" } },
-            ["@lsp.type.parameter"] = { fg = p.text, style = { "italic" } },
-            Operator = { fg = p.operator },
-            ["@operator"] = { fg = p.operator },
-            ["@punctuation.bracket"] = { fg = p.operator },
-            ["@punctuation.delimiter"] = { fg = p.operator },
-            Comment = { fg = p.comment, style = { "italic" } },
-            ["@comment"] = { fg = p.comment, style = { "italic" } },
-
+          local hl = {}
+          for _, role in ipairs(syntax) do
+            for _, group in ipairs(role.groups) do
+              hl[group] = { fg = role.fg, style = role.style }
+            end
+          end
+          return vim.tbl_extend("error", hl, {
             -- Editor UI
             LineNr = { fg = p.linenr },
             CursorLineNr = { fg = p.keyword, style = { "bold" } },
@@ -137,7 +157,7 @@ return {
             DiagnosticUnderlineWarn = { sp = p.warn, style = { "underline" } },
             DiagnosticUnderlineInfo = { sp = p.info, style = { "underdotted" } },
             DiagnosticUnderlineHint = { sp = p.hint, style = { "underdashed" } },
-          }
+          })
         end,
       },
       integrations = {

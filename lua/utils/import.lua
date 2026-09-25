@@ -1,10 +1,5 @@
 local M = {}
 
-local function get_project_root()
-  local ok, util = pcall(require, "lazyvim.util")
-  return (ok and util.root.get()) or vim.loop.cwd()
-end
-
 local function split_path_parts(path)
   local parts = {}
   for p in path:gmatch("[^/]+") do
@@ -14,7 +9,7 @@ local function split_path_parts(path)
 end
 
 local function build_python_import(def_path, symbol)
-  local root = get_project_root()
+  local root = LazyVim.root()
   local rel = (vim.fs.relpath(root, def_path) or def_path):gsub("\\", "/")
   if rel:match("/__init__%.py$") then
     local mod = rel:gsub("/__init__%.py$", ""):gsub("/", ".")
@@ -69,7 +64,7 @@ local function build_rust_import(def_path, symbol)
     return "use " .. symbol .. ";"
   end
 
-  local root = get_project_root()
+  local root = LazyVim.root()
   local rel = (vim.fs.relpath(root, def_path) or def_path):gsub("\\", "/")
   local mod = rel:gsub("^src/", ""):gsub("%.rs$", ""):gsub("/mod$", "")
   if mod == "lib" or mod == "main" then
